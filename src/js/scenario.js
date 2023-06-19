@@ -22,14 +22,15 @@ export const scenario = (scene, camera, renderer) => {
   const userOpenedBlocker = scene.getObjectByName("LeftTop");
   const leftStaticWater = scene.getObjectByName("LeftStaticWater");
   const dynamicWaterMesh = scene.getObjectByName("DynamicWater");
-  const canvas = document.querySelector("canvas.webgl");
 
   shark.sharkAnim();
   cat.catCircleAnimation();
   cat.catCircleEyesAnimation();
 
   const endScenario = () => {
-    // canvas.removeEventListener("pointerdown", clickListener);
+    window.removeEventListener("pointerdown", (EO) => {
+      clickListener(EO);
+    });
     userOpenedBlocker.blockerLight.visible = false;
     userOpenedBlocker.openTimeLine.pause();
     lava_static.loop([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], 0.7);
@@ -77,6 +78,8 @@ export const scenario = (scene, camera, renderer) => {
   };
 
   const clickListener = (EO) => {
+    EO.stopPropagation();
+    EO.preventDefault();
     const viewport = new THREE.Vector4();
     renderer.getViewport(viewport);
     if (EO.clientY < viewport.height / 2 && EO.clientX < viewport.width / 2) {
@@ -176,7 +179,9 @@ export const scenario = (scene, camera, renderer) => {
       ease: "none",
       onStart: () => {
         userOpenedBlocker.shortOpen(-0.1, 0.1, 5, true, 1);
-        canvas.addEventListener("pointerdown", clickListener);
+        window.addEventListener("pointerdown", (EO) => {
+          clickListener(EO);
+        });
       },
       onComplete: () => {
         endScenario();
