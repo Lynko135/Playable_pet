@@ -28,8 +28,7 @@ export const scenario = (scene, camera, renderer) => {
   cat.catCircleEyesAnimation();
 
   const endScenario = () => {
-    window.removeEventListener("click", clickListener);
-    window.removeEventListener("touchstart", clickListener);
+    window.removeEventListener("pointerdown", clickListener);
     userOpenedBlocker.blockerLight.visible = false;
     userOpenedBlocker.openTimeLine.pause();
     lava_static.loop([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], 0.7);
@@ -176,8 +175,7 @@ export const scenario = (scene, camera, renderer) => {
       ease: "none",
       onStart: () => {
         userOpenedBlocker.shortOpen(-0.1, 0.1, 5, true, 1);
-        window.addEventListener("click", clickListener);
-        window.addEventListener("touchstart", clickListener);
+        window.addEventListener("pointerdown", clickListener);
       },
       onComplete: () => {
         endScenario();
