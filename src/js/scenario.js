@@ -22,15 +22,20 @@ export const scenario = (scene, camera, renderer) => {
   const userOpenedBlocker = scene.getObjectByName("LeftTop");
   const leftStaticWater = scene.getObjectByName("LeftStaticWater");
   const dynamicWaterMesh = scene.getObjectByName("DynamicWater");
+  const clicker = document.querySelector('.clicker');
+  console.log(clicker);
 
   shark.sharkAnim();
   cat.catCircleAnimation();
   cat.catCircleEyesAnimation();
 
   const endScenario = () => {
-    window.removeEventListener("pointerdown", (EO) => {
-      clickListener(EO);
-    });
+    // window.removeEventListener("pointerdown", (EO) => {
+    //   clickListener(EO);
+    // });
+    clicker.removeEventListener('pointerdown', (EO) => {
+      clickListener(EO)
+    })
     userOpenedBlocker.blockerLight.visible = false;
     userOpenedBlocker.openTimeLine.pause();
     lava_static.loop([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], 0.7);
@@ -80,15 +85,17 @@ export const scenario = (scene, camera, renderer) => {
   const clickListener = (EO) => {
     EO.stopPropagation();
     EO.preventDefault();
-    let x = EO.clientX || EO.offsetX || EO.pageX;
-    let y = EO.clientY || EO.offsetY || EO.pageY;
+    // let x = EO.clientX || EO.offsetX || EO.pageX;
+    // let y = EO.clientY || EO.offsetY || EO.pageY;
     // console.log(window.innerWidth, window.innerHeight);
-    const viewport = new THREE.Vector4();
-    renderer.getViewport(viewport);
-    if (y < window.innerHeight / 2 && x < window.innerWidth / 2) {
-      mainTimeLine.pause();
+    // const viewport = new THREE.Vector4();
+    // renderer.getViewport(viewport);
+    // if (y < window.innerHeight / 2 && x < window.innerWidth / 2) {
+    //   mainTimeLine.pause();
+    //   endScenario();
+    // }
+    mainTimeLine.pause();
       endScenario();
-    }
   };
 
   mainTimeLine
@@ -141,7 +148,7 @@ export const scenario = (scene, camera, renderer) => {
       ease: "none",
       onStart: () => {
         tutorOpenedBlocker.toggleLight(false, 0, false, 0.5);
-        tutorOpenedBlocker.shortOpen(-1.2, -1.2, 0, false);
+        tutorOpenedBlocker.shortOpen(-1.2, -1.2, 0, false, 1);
         scene.remove(leftStaticWater);
 
         dynamicSpriteWater.sprite.visible = true;
@@ -182,7 +189,7 @@ export const scenario = (scene, camera, renderer) => {
       ease: "none",
       onStart: () => {
         userOpenedBlocker.shortOpen(-0.1, 0.1, 5, true, 1);
-        window.addEventListener("pointerdown", (EO) => {
+        clicker.addEventListener("pointerdown", (EO) => {
           clickListener(EO);
         });
       },
