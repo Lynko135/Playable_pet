@@ -80,9 +80,12 @@ export const scenario = (scene, camera, renderer) => {
   const clickListener = (EO) => {
     EO.stopPropagation();
     EO.preventDefault();
+    let x = EO.clientX || EO.offsetX || EO.pageX;
+    let y = EO.clientY || EO.offsetY || EO.pageY;
+    // console.log(window.innerWidth, window.innerHeight);
     const viewport = new THREE.Vector4();
     renderer.getViewport(viewport);
-    if (EO.clientY < viewport.height / 2 && EO.clientX < viewport.width / 2) {
+    if (y < window.innerHeight / 2 && x < window.innerWidth / 2) {
       mainTimeLine.pause();
       endScenario();
     }
