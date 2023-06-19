@@ -80,10 +80,11 @@ export const scenario = (scene, camera, renderer) => {
     EO.preventDefault();
     const viewport = new THREE.Vector4();
     renderer.getViewport(viewport);
-    if (EO.clientY < viewport.height / 2 && EO.clientX < viewport.width / 2) {
-      mainTimeLine.pause();
-      endScenario();
-    }
+    mainTimeLine.pause();
+    endScenario();
+    // if (EO.clientY < viewport.height / 2 && EO.clientX < viewport.width / 2) {
+
+    // }
   };
 
   mainTimeLine
