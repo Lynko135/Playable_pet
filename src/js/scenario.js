@@ -22,16 +22,15 @@ export const scenario = (scene, camera, renderer) => {
   const userOpenedBlocker = scene.getObjectByName("LeftTop");
   const leftStaticWater = scene.getObjectByName("LeftStaticWater");
   const dynamicWaterMesh = scene.getObjectByName("DynamicWater");
-  const clicker = document.querySelector('.clicker');
-  console.log(clicker);
+  const clicker = document.querySelector(".clicker");
 
   shark.sharkAnim();
   cat.catCircleAnimation();
   cat.catCircleEyesAnimation();
 
   const endScenario = () => {
-    clicker.removeEventListener('pointerdown', (EO) => {
-      clickListener(EO)
+    clicker.removeEventListener("pointerdown", (EO) => {
+      clickListener(EO);
     });
     userOpenedBlocker.blockerLight.visible = false;
     userOpenedBlocker.openTimeLine.pause();
@@ -83,7 +82,7 @@ export const scenario = (scene, camera, renderer) => {
     EO.stopPropagation();
     EO.preventDefault();
     mainTimeLine.pause();
-      endScenario();
+    endScenario();
   };
 
   mainTimeLine
